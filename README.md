@@ -58,24 +58,28 @@ Run:
 python results.py
 ```
 
-This script imports the aircraft model and RK4 solver from
-gimli_simulation.py. It calculates baseline arrival conditions,
-runs an additional passenger study from 0 to 250 passengers,
-compares fixed-start and initially balanced altitude cases,
-and evaluates the combined passenger–altitude reachability grid.
+This script imports and uses the aircraft model and RK4 solver
+from gimli_simulation.py. It does not implement a separate
+aircraft model or time integrator.
 
-It prints numerical results and creates these files inside a
-results folder in the current working directory:
+It performs three analyses:
 
-- results/A_baseline.png
-- results/B_passengers.png
+- Calculates and prints the baseline altitude above Gimli,
+  true airspeed, and elapsed time at Gimli's horizontal position.
+- Compares glide range and critical initial altitude for the
+  fixed starting conditions and an initially balanced glide.
+- Calculates a combined reachability map for 0–250 passengers
+  in increments of 25 and initial altitudes of 2,500–11,000 m
+  in increments of 500 m.
+
+It creates the results folder if needed and saves:
+
 - results/C_altitude.png
 - results/D_boundary.png
 
-A_baseline.png is an alternate baseline figure and differs from
-baseline_trajectory.png. B_passengers.png uses a different
-passenger study from passenger_sensitivity.png. These files
-are not interchangeable.
+The passenger-count sweep and 1,000-passenger stress test remain
+in gimli_simulation.py. This script does not generate an
+additional baseline or passenger-count figure.
 
 Running either script can overwrite its previously generated
 figure files.
