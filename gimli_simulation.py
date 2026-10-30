@@ -410,6 +410,23 @@ def main():
         )
 
 
+    # Deliberately unrealistic passenger-load stress test.
+    _, stress_states = simulate_glide(dt=1.0, passengers=1000)
+
+    stress_mass = m_fixed + 1000 * m_p
+    stress_range = stress_states[-1][0]
+    baseline_range = baseline[-1][0]
+    reduction_percent = (
+        100 * (baseline_range - stress_range) / baseline_range
+    )
+    stress_margin = stress_range - x_G
+
+    print("\n--- 1,000-Passenger Stress Test ---")
+    print(f"Aircraft mass: {stress_mass:.0f} kg")
+    print(f"Glide range: {stress_range / 1000:.2f} km")
+    print(f"Range reduction: {reduction_percent:.2f}%")
+    print(f"Horizontal range margin: {stress_margin / 1000:.2f} km")
+
 
     # Find the critical initial altitude using bisection
 
